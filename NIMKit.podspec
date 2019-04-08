@@ -1,6 +1,6 @@
 Pod::Spec.new do |s| 
   s.name = 'NIMKit' 
-  s.version = '3.11.6'
+  s.version = '3.11.5'
   s.summary = 'Netease IM UI Kit' 
   s.homepage = 'http://netease.im' 
   s.license = { :'type' => 'Copyright', :'text' => ' Copyright 2019 Netease '} 
