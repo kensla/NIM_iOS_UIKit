@@ -77,13 +77,13 @@
 - (void)setupNav
 {
     [self setUpTitleView];
-    NIMCustomLeftBarView *leftBarView = [[NIMCustomLeftBarView alloc] init];
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarView];
-    if (@available(iOS 11.0, *)) {
-        leftBarView.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    self.navigationItem.leftBarButtonItems = @[leftItem];
-    self.navigationItem.leftItemsSupplementBackButton = YES;
+//    NIMCustomLeftBarView *leftBarView = [[NIMCustomLeftBarView alloc] init];
+//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBarView];
+//    if (@available(iOS 11.0, *)) {
+//        leftBarView.translatesAutoresizingMaskIntoConstraints = NO;
+//    }
+//    self.navigationItem.leftBarButtonItems = @[leftItem];
+//    self.navigationItem.leftItemsSupplementBackButton = YES;
 }
 
 - (void)setupTableView
@@ -771,9 +771,9 @@
 
 - (void)changeLeftBarBadge:(NSInteger)unreadCount
 {
-    NIMCustomLeftBarView *leftBarView = (NIMCustomLeftBarView *)self.navigationItem.leftBarButtonItem.customView;
-    leftBarView.badgeView.badgeValue = @(unreadCount).stringValue;
-    leftBarView.badgeView.hidden = !unreadCount;
+//    NIMCustomLeftBarView *leftBarView = (NIMCustomLeftBarView *)self.navigationItem.leftBarButtonItem.customView;
+//    leftBarView.badgeView.badgeValue = @(unreadCount).stringValue;
+//    leftBarView.badgeView.hidden = !unreadCount;
 }
 
 
