@@ -69,7 +69,7 @@
     _inputMaxLength = 1000;
     _nickFont  = [UIFont systemFontOfSize:13.0];
     _nickColor = [UIColor darkGrayColor];
-    _receiptFont  = [UIFont systemFontOfSize:13.0]; 
+    _receiptFont  = [UIFont systemFontOfSize:13.0];
     _receiptColor = [UIColor darkGrayColor];
     _avatarType = NIMKitAvatarTypeRounded;
     _cellBackgroundColor = NIMKit_UIColorFromRGB(0xE4E7EC);
@@ -175,6 +175,8 @@
     _videoSetting.contentInsets = _isRight? UIEdgeInsetsFromString(@"{3,3,3,8}") : UIEdgeInsetsFromString(@"{3,8,3,3}");
     _videoSetting.font      = [UIFont systemFontOfSize:14];
     _videoSetting.showAvatar = YES;
+    _videoSetting.normalBackgroundImage = nil;
+    _videoSetting.highLightBackgroundImage = nil;
 }
 
 - (void)applyDefaultFileSettings
@@ -190,6 +192,8 @@
     _imageSetting = [[NIMKitSetting alloc] init:_isRight];
     _imageSetting.contentInsets = _isRight? UIEdgeInsetsFromString(@"{3,3,3,8}") : UIEdgeInsetsFromString(@"{3,8,3,3}");
     _imageSetting.showAvatar = YES;
+    _imageSetting.normalBackgroundImage = nil;
+    _imageSetting.highLightBackgroundImage = nil;
 }
 
 - (void)applyDefaultLocationSettings
@@ -199,6 +203,8 @@
     _locationSetting.textColor = NIMKit_UIColorFromRGB(0xFFFFFF);
     _locationSetting.font      = [UIFont systemFontOfSize:12];
     _locationSetting.showAvatar = YES;
+    _locationSetting.normalBackgroundImage = nil;
+    _locationSetting.highLightBackgroundImage = nil;
 }
 
 - (void)applyDefaultTipSettings
