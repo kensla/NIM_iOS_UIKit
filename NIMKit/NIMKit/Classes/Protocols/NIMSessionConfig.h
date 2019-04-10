@@ -27,6 +27,11 @@
  */
 - (NSArray<NIMMediaItem *> *)mediaItems;
 
+/**
+ *  可以显示在点击输入框“+”按钮之后的多媒体View 容器高度
+ */
+- (float)inputMoreViewHeight;
+
 
 /**
  *  禁用贴图表情

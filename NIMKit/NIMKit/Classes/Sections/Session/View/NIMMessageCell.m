@@ -40,7 +40,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier]) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;        
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self makeComponents];
         [self makeGesture];
     }
@@ -94,7 +94,14 @@
     //readlabel
     _readButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _readButton.opaque = YES;
+    _readButton.backgroundColor = [UIColor colorWithRed:193/255.0 green:191/255.0 blue:185/255.0 alpha:1.0];
+    _readButton.layer.cornerRadius = 2;
     _readButton.titleLabel.font   = [NIMKit sharedKit].config.receiptFont;
+    
+    _readButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    _readButton.titleLabel.minimumScaleFactor = 0.5;
+    
+    
     [_readButton setTitleColor:[NIMKit sharedKit].config.receiptColor forState:UIControlStateNormal];
     [_readButton setTitleColor:[NIMKit sharedKit].config.receiptColor forState:UIControlStateHighlighted];
     [_readButton setHidden:YES];
@@ -132,7 +139,7 @@
     {
         [_headImageView setAvatarByMessage:self.model.message];
     }
-
+    
     if([self needShowNickName])
     {
         NSString *nick = [NIMKitUtil showNick:self.model.message.from inMessage:self.model.message];
@@ -172,12 +179,16 @@
         if (self.model.message.session.sessionType == NIMSessionTypeP2P)
         {
             [_readButton setTitle:@"已读" forState:UIControlStateNormal];
-            [_readButton sizeToFit];
+            [_readButton.titleLabel sizeToFit];
+            //            [_readButton sizeToFit];
+            _readButton.frame = CGRectMake(_readButton.frame.origin.x, _readButton.frame.origin.y, _readButton.titleLabel.frame.size.width + 3, _readButton.titleLabel.frame.size.height + 3);
         }
         else if(self.model.message.session.sessionType == NIMSessionTypeTeam)
         {
             [_readButton setTitle:[NSString stringWithFormat:@"%zd人未读",self.model.message.teamReceiptInfo.unreadCount] forState:UIControlStateNormal];
-            [_readButton sizeToFit];
+            //            [_readButton sizeToFit];
+            [_readButton.titleLabel sizeToFit];
+            _readButton.frame = CGRectMake(_readButton.frame.origin.x, _readButton.frame.origin.y, _readButton.titleLabel.frame.size.width + 3, _readButton.titleLabel.frame.size.height + 3);
         }
     }
 }
@@ -209,7 +220,7 @@
     }
     id<NIMCellLayoutConfig> layoutConfig = [[NIMKit sharedKit] layoutConfig];
     self.customViews = [layoutConfig customViews:self.model];
-
+    
     for (UIView *view in self.customViews) {
         [self.contentView addSubview:view];
     }
@@ -330,7 +341,7 @@
         
         _readButton.nim_left = left - CGRectGetWidth(_readButton.bounds) - [self readButtonBubblePadding];
         _readButton.nim_bottom = bottom;
-
+        
     }
 }
 
@@ -355,7 +366,7 @@
         gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onLongPressCell:inView:)]) {
             [self.delegate onLongPressCell:self.model.message
-                                       inView:_bubbleView];
+                                    inView:_bubbleView];
         }
     }
 }
@@ -403,7 +414,7 @@
     {
         disable = [layoutConfig disableRetryButton:self.model];
     }
-    return disable;    
+    return disable;
 }
 
 - (CGFloat)retryButtonBubblePadding {
@@ -428,7 +439,7 @@
 
 
 - (BOOL)unreadHidden {
-    if (self.model.message.messageType == NIMMessageTypeAudio) 
+    if (self.model.message.messageType == NIMMessageTypeAudio)
     { //音频
         BOOL disable = NO;
         if ([self.delegate respondsToSelector:@selector(disableAudioPlayedStatusIcon:)]) {
@@ -436,7 +447,7 @@
         }
         
         //BOOL hideIcon = self.model.message.attachmentDownloadState != NIMMessageAttachmentDownloadStateDownloaded || disable;
-
+        
         return (disable || self.model.message.isOutgoingMsg || [self.model.message isPlayed]);
     }
     return YES;

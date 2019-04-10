@@ -55,7 +55,12 @@ NSInteger NIMButtonBegintLeftX = 11;
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-    return CGSizeMake(size.width, 216.f);
+//    return CGSizeMake(size.width, 216.f);
+    if (CGSizeEqualToSize(size,CGSizeZero) ) {
+        return CGSizeMake(size.width, 216.f);
+    }else {
+        return size;
+    }
 }
 
 

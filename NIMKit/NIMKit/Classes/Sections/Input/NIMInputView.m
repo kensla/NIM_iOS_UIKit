@@ -200,8 +200,12 @@
 - (void)checkMoreContainer
 {
     if (!_moreContainer) {
+        CGSize  size = CGSizeMake(self.nim_width, CGFLOAT_MAX);
+        if ([_inputConfig respondsToSelector:@selector(inputMoreViewHeight)]) {
+            size = CGSizeMake(self.nim_width, [_inputConfig inputMoreViewHeight]);
+        }
         NIMInputMoreContainerView *moreContainer = [[NIMInputMoreContainerView alloc] initWithFrame:CGRectZero];
-        moreContainer.nim_size = [moreContainer sizeThatFits:CGSizeMake(self.nim_width, CGFLOAT_MAX)];
+        moreContainer.nim_size = [moreContainer sizeThatFits:size];
         moreContainer.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         moreContainer.hidden   = YES;
         moreContainer.config   = _inputConfig;
