@@ -46,7 +46,7 @@
         _badgeBackgroundColor = [UIColor redColor];
         _badgeTextColor       = [UIColor whiteColor];
         _badgeTextFont        = [UIFont boldSystemFontOfSize:12];
-        _whiteCircleWidth     = 2.f;
+        _whiteCircleWidth     = 0.f;
     }
     return self;
 }
@@ -67,12 +67,12 @@
 - (void)setBadgeValue:(NSString *)badgeValue {
     _badgeValue = badgeValue;
     if (_badgeValue.integerValue > 9) {
-       _badgeLeftPadding     = 6.f;
+        _badgeLeftPadding     = 6.f;
     }else{
-       _badgeLeftPadding     = 2.f;
+        _badgeLeftPadding     = 2.f;
     }
     _badgeTopPadding      = 2.f;
-
+    
     self.frame = [self frameWithStr:badgeValue];
     
     
@@ -104,7 +104,7 @@
     CGRect bkgFrame = CGRectInset(self.bounds, self.whiteCircleWidth, self.whiteCircleWidth);
     CGRect badgeSize = CGRectInset(self.bounds, self.whiteCircleWidth + self.badgeLeftPadding, self.whiteCircleWidth + self.badgeTopPadding);
     if ([self badgeBackgroundColor]) {//外白色描边
-        CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
+        CGContextSetFillColorWithColor(context, [[UIColor redColor] CGColor]);
         if ([self badgeValue].integerValue > 9) {
             CGFloat circleWith = bodyFrame.size.height;
             CGFloat totalWidth = bodyFrame.size.width;
