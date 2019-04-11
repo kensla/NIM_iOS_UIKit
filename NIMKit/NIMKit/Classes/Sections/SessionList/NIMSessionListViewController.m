@@ -23,7 +23,7 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-
+        
     }
     return self;
 }
@@ -44,6 +44,12 @@
     self.tableView.tableFooterView  = [[UIView alloc] init];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _recentSessions = [[NIMSDK sharedSDK].conversationManager.allRecentSessions mutableCopy];
+    
+    // 系统类自定义通知消息不显示在消息列表
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"session.sessionId CONTAINS %@", @"sysmsg_100"];
+    NSArray *filteredArray = [_recentSessions filteredArrayUsingPredicate:predicate];
+    [_recentSessions removeObjectsInArray:filteredArray];
+    
     if (!self.recentSessions.count)
     {
         _recentSessions = [NSMutableArray array];
@@ -52,7 +58,7 @@
     {
         _recentSessions = [self customSortRecents:_recentSessions];
     }
-
+    
     [[NIMSDK sharedSDK].conversationManager addDelegate:self];
     [[NIMSDK sharedSDK].loginManager addDelegate:self];
     
@@ -125,6 +131,12 @@
 #pragma mark - NIMConversationManagerDelegate
 - (void)didAddRecentSession:(NIMRecentSession *)recentSession
            totalUnreadCount:(NSInteger)totalUnreadCount{
+    
+    if ([recentSession.session.sessionId containsString:@"sysmsg_100"]) {
+        // 系统类自定义通知消息不显示在消息列表
+        return;
+    }
+    
     [self.recentSessions addObject:recentSession];
     [self sort];
     _recentSessions = [self customSortRecents:_recentSessions];
@@ -159,7 +171,7 @@
     if (self.autoRemoveRemoteSession)
     {
         [[NIMSDK sharedSDK].conversationManager deleteRemoteSessions:@[recentSession.session]
-                           completion:nil];
+                                                          completion:nil];
     }
     _recentSessions = [self customSortRecents:_recentSessions];
     [self refresh];
