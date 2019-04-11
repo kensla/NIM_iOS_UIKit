@@ -87,13 +87,19 @@
                 if(handler) handler(nil);
             }
             if (status == PHAuthorizationStatusAuthorized) {
-                NIMKitMediaPickerController *vc = [[NIMKitMediaPickerController alloc] initWithMaxImagesCount:self.limit delegate:weakSelf];
-                vc.naviBgColor = [UIColor blackColor];
-                vc.naviTitleColor = [UIColor whiteColor];
-                vc.barItemTextColor = [UIColor whiteColor];
-                vc.navigationBar.barStyle = UIBarStyleDefault;
-                vc.allowPickingVideo = [_mediaTypes containsObject:(NSString *)kUTTypeMovie];
-                if(handler) handler(vc);
+                NIMKitMediaPickerController *imagePickerVc = [[NIMKitMediaPickerController alloc] initWithMaxImagesCount:self.limit delegate:weakSelf];
+                imagePickerVc.naviBgColor = [UIColor blackColor];
+                imagePickerVc.naviTitleColor = [UIColor blackColor];
+                imagePickerVc.barItemTextColor = [UIColor blackColor];
+                imagePickerVc.navigationBar.barStyle = UIBarStyleDefault;
+                /// 单选模式,maxImagesCount为1时才生效
+                imagePickerVc.showSelectBtn = YES;
+                // 在内部显示拍照按钮
+                imagePickerVc.allowTakePicture = NO;
+                // 在内部显示拍视频按
+                imagePickerVc.allowTakeVideo = NO;
+                imagePickerVc.allowPickingVideo = [_mediaTypes containsObject:(NSString *)kUTTypeMovie];
+                if(handler) handler(imagePickerVc);
             }
         });
     }];
