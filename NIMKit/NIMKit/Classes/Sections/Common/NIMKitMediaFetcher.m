@@ -26,12 +26,21 @@
 @property (nonatomic,copy)   NIMKitCameraFetchResult  cameraResultHandler;
 
 @property (nonatomic,strong) UIImagePickerController  *imagePicker;
-
-@property (nonatomic,strong) NIMKitMediaPickerController  *assetsPicker;
+//
+//@property (nonatomic,weak) NIMKitMediaPickerController  *assetsPicker;
 
 @end
 
 @implementation NIMKitMediaFetcher
+
+-(void)dealloc {
+    NSLog(@"销毁%@", self.class);
+    self.imagePicker.delegate = self;
+    self.imagePicker = nil;
+    
+    self.libraryResultHandler = nil;
+    self.cameraResultHandler = nil;
+}
 
 - (instancetype)init
 {
@@ -47,8 +56,8 @@
 {
     __weak typeof(self) weakSelf = self;
     [self setUpPhotoLibrary:^(NIMKitMediaPickerController * _Nullable picker) {
+        
         if (picker && weakSelf) {
-            weakSelf.assetsPicker = picker;
             weakSelf.libraryResultHandler = result;
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
             
@@ -68,6 +77,7 @@
         self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
         self.imagePicker.videoQuality = UIImagePickerControllerQualityTypeHigh;
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:self.imagePicker animated:YES completion:nil];
+        self.imagePicker = nil;
 #endif
     }
 }
@@ -77,6 +87,7 @@
 {
     __weak typeof(self) weakSelf = self;
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){
+        __strong typeof(weakSelf) strongSelf = weakSelf;
         dispatch_async(dispatch_get_main_queue(), ^{
             if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
                 [[[UIAlertView alloc] initWithTitle:nil
@@ -87,13 +98,19 @@
                 if(handler) handler(nil);
             }
             if (status == PHAuthorizationStatusAuthorized) {
-                NIMKitMediaPickerController *vc = [[NIMKitMediaPickerController alloc] initWithMaxImagesCount:self.limit delegate:weakSelf];
-                vc.naviBgColor = [UIColor blackColor];
-                vc.naviTitleColor = [UIColor whiteColor];
-                vc.barItemTextColor = [UIColor whiteColor];
-                vc.navigationBar.barStyle = UIBarStyleDefault;
-                vc.allowPickingVideo = [_mediaTypes containsObject:(NSString *)kUTTypeMovie];
-                if(handler) handler(vc);
+                NIMKitMediaPickerController *imagePickerVc = [[NIMKitMediaPickerController alloc] initWithMaxImagesCount:strongSelf.limit delegate:strongSelf];
+                imagePickerVc.naviBgColor = [UIColor blackColor];
+                imagePickerVc.naviTitleColor = [UIColor blackColor];
+                imagePickerVc.barItemTextColor = [UIColor blackColor];
+                imagePickerVc.navigationBar.barStyle = UIBarStyleDefault;
+                /// 单选模式,maxImagesCount为1时才生效
+                imagePickerVc.showSelectBtn = YES;
+                // 在内部显示拍照按钮
+                imagePickerVc.allowTakePicture = NO;
+                // 在内部显示拍视频按
+                imagePickerVc.allowTakeVideo = NO;
+                imagePickerVc.allowPickingVideo = [strongSelf.mediaTypes containsObject:(NSString *)kUTTypeMovie];
+                if(handler) handler(imagePickerVc);
             }
         });
     }];
@@ -191,12 +208,12 @@
         options.version = PHVideoRequestOptionsVersionCurrent;
         options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
         
-
+        
         [[PHImageManager defaultManager] requestExportSessionForVideo:asset options:options exportPreset:AVAssetExportPresetHighestQuality resultHandler:^(AVAssetExportSession * _Nullable exportSession, NSDictionary * _Nullable info) {
-
+            
             NSString *outputFileName = [NIMKitFileLocationHelper genFilenameWithExt:@"mp4"];
             NSString *outputPath = [NIMKitFileLocationHelper filepathForVideo:outputFileName];
-
+            
             exportSession.outputURL = [NSURL fileURLWithPath:outputPath];
             exportSession.outputFileType = AVFileTypeMPEG4;
             exportSession.shouldOptimizeForNetworkUse = YES;
@@ -232,7 +249,7 @@
 {
     _mediaTypes = mediaTypes;
     _imagePicker.mediaTypes = mediaTypes;
-    _assetsPicker.allowPickingVideo = [mediaTypes containsObject:(NSString *)kUTTypeMovie];
+    //    _assetsPicker.allowPickingVideo = [mediaTypes containsObject:(NSString *)kUTTypeMovie];
 }
 
 - (AVMutableVideoComposition *)getVideoComposition:(AVAsset *)asset
