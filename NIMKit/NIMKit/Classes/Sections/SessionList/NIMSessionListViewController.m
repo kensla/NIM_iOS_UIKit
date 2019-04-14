@@ -142,6 +142,11 @@
             break;
         }
     }
+    
+    if ([recentSession.session.sessionId containsString:@"sysmsg_100"]) {
+        // 系统类自定义通知消息不显示在消息列表
+        return;
+    }
     NSInteger insert = [self findInsertPlace:recentSession];
     [self.recentSessions insertObject:recentSession atIndex:insert];
     _recentSessions = [self customSortRecents:_recentSessions];
