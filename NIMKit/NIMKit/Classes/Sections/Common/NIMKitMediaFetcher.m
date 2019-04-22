@@ -168,7 +168,7 @@
     else
     {
         if (self.libraryResultHandler) {
-            self.libraryResultHandler(photos,nil,PHAssetMediaTypeImage);
+            self.libraryResultHandler(photos,nil,PHAssetMediaTypeImage,assets);
         }
     }
 }
@@ -190,7 +190,7 @@
         [NIMKitProgressHUD dismiss];
         if (weakSelf.libraryResultHandler)
         {
-            weakSelf.libraryResultHandler(nil,path,type);
+            weakSelf.libraryResultHandler(nil,path,type,nil);
         }
         NIMKit_Dispatch_Async_Main(^{
             [assets removeObjectAtIndex:0];

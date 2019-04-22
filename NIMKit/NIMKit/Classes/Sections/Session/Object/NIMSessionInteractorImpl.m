@@ -382,7 +382,7 @@ dispatch_queue_t NTESMessageDataPrepareQueue()
 - (void)mediaPicturePressed
 {
     __weak typeof(self) weakSelf = self;
-    [self.mediaFetcher fetchPhotoFromLibrary:^(NSArray *images, NSString *path, PHAssetMediaType type) {
+    [self.mediaFetcher fetchPhotoFromLibrary:^(NSArray *images, NSString *path, PHAssetMediaType type,NSArray *assets) {
         switch (type) {
             case PHAssetMediaTypeImage:
             {
