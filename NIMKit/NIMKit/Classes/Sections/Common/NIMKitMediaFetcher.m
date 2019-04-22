@@ -62,7 +62,7 @@
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
             
         }else{
-            result(nil,nil,PHAssetMediaTypeUnknown);
+            result(nil,nil,PHAssetMediaTypeUnknown,nil);
         }
     }];
 }
