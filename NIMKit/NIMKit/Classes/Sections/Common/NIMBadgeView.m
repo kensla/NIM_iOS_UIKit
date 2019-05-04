@@ -43,7 +43,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor  = [UIColor clearColor];
-        _badgeBackgroundColor = [UIColor redColor];
+        _badgeBackgroundColor = [UIColor colorWithRed:232/255.0 green:101/255.0 blue:118/255.0 alpha:1.0];
         _badgeTextColor       = [UIColor whiteColor];
         _badgeTextFont        = [UIFont boldSystemFontOfSize:12];
         _whiteCircleWidth     = 0.f;

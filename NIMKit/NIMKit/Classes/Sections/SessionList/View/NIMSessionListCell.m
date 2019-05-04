@@ -22,19 +22,19 @@
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.backgroundColor = [UIColor whiteColor];
-        _nameLabel.font            = [UIFont boldSystemFontOfSize:15];
+        _nameLabel.font            = [UIFont boldSystemFontOfSize:16];
         [self addSubview:_nameLabel];
         
         _messageLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _messageLabel.backgroundColor = [UIColor whiteColor];
-        _messageLabel.font            = [UIFont systemFontOfSize:13.f];
-        _messageLabel.textColor       =  [UIColor colorWithRed:152/255.0 green:152/255.0 blue:152/255.0 alpha:1.0];
+        _messageLabel.font            = [UIFont systemFontOfSize:14.f];
+        _messageLabel.textColor       =  [UIColor colorWithRed:100/255.0 green:100/255.0 blue:107/255.0 alpha:1.0];
         [self addSubview:_messageLabel];
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.backgroundColor = [UIColor whiteColor];
-        _timeLabel.font            = [UIFont systemFontOfSize:11.f];
-        _timeLabel.textColor       = [UIColor colorWithRed:152/255.0 green:152/255.0 blue:152/255.0 alpha:1.0];
+        _timeLabel.font            = [UIFont systemFontOfSize:13.f];
+        _timeLabel.textColor       = [UIColor colorWithRed:176/255.0 green:176/255.0 blue:176/255.0 alpha:1.0];
         [self addSubview:_timeLabel];
         
         _badgeView = [NIMBadgeView viewWithBadgeTip:@""];
