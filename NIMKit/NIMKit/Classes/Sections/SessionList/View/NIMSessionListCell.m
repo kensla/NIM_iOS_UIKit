@@ -18,10 +18,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         _avatarImageView = [[NIMAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, AvatarWidth, AvatarWidth)];
-        [_avatarImageView setContentScaleFactor:[[UIScreen mainScreen] scale]];
-        _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _avatarImageView.autoresizingMask = UIViewAutoresizingNone;
-        _avatarImageView.clipsToBounds = YES;
+
         [self addSubview:_avatarImageView];
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];

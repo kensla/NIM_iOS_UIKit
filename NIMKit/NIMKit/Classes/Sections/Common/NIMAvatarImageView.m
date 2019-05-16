@@ -47,7 +47,10 @@ static char imageURLKey;
 - (void)setup
 {
     _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    [_imageView setContentScaleFactor:[[UIScreen mainScreen] scale]];
     _imageView.contentMode = UIViewContentModeScaleAspectFill;
+    _imageView.autoresizingMask = UIViewAutoresizingNone;
+    _imageView.clipsToBounds = YES;
     [self addSubview:_imageView];
     
     self.backgroundColor = [UIColor clearColor];
