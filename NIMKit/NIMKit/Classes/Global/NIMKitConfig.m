@@ -155,7 +155,8 @@
 {
     _textSetting = [[NIMKitSetting alloc] init:_isRight];
     _textSetting.contentInsets = _isRight? UIEdgeInsetsFromString(@"{11,11,9,15}") : UIEdgeInsetsFromString(@"{11,15,9,9}");
-    _textSetting.textColor = _isRight? NIMKit_UIColorFromRGB(0xFFFFFF) : NIMKit_UIColorFromRGB(0x000000);
+    //    _textSetting.textColor = _isRight? NIMKit_UIColorFromRGB(0xFFFFFF) : NIMKit_UIColorFromRGB(0x000000);
+    _textSetting.textColor = _isRight? NIMKit_UIColorFromRGB(0x000000) : NIMKit_UIColorFromRGB(0x000000);
     _textSetting.font      = [UIFont systemFontOfSize:14];
     _textSetting.showAvatar = YES;
 }
