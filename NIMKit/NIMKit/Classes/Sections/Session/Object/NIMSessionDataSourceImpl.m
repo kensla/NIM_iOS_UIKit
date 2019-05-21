@@ -168,26 +168,35 @@
             NIMMessage *message = [model message];
             if (message.isOutgoingMsg) {
                 
-                if (!findLastReceipt) {
-                    
-                    if (message.isRemoteRead && hasConfig && [self.sessionConfig shouldHandleReceiptForMessage:message])
-                    {
-                        if (model.shouldShowReadLabel) {
-                            break;  //当前没有变化
-                        }else{
-                            dict[@(i)] = model;
-                            model.shouldShowReadLabel = YES;
-                            findLastReceipt = YES;
-                        }
-                    }
-                }
-                else {
-                    if (model.shouldShowReadLabel) {
-                        dict[@(i)] = model;
-                        model.shouldShowReadLabel = NO;
-                        break;  //理论上只有一个已读标记在UI上,所以找到就可以跳出循环
-                    }
-                }
+                //                if (message.isRemoteRead && hasConfig && [self.sessionConfig shouldHandleReceiptForMessage:message])
+                //                {
+                //                    dict[@(i)] = model;
+                //                    model.shouldShowReadLabel = YES;
+                //                }
+                
+                dict[@(i)] = model;
+                model.shouldShowReadLabel = YES;
+                
+                //                if (!findLastReceipt) {
+                //
+                //                    if (message.isRemoteRead && hasConfig && [self.sessionConfig shouldHandleReceiptForMessage:message])
+                //                    {
+                //                        if (model.shouldShowReadLabel) {
+                //                            break;  //当前没有变化
+                //                        }else{
+                //                            dict[@(i)] = model;
+                //                            model.shouldShowReadLabel = YES;
+                //                            findLastReceipt = YES;
+                //                        }
+                //                    }
+                //                }
+                //                else {
+                //                    if (model.shouldShowReadLabel) {
+                //                        dict[@(i)] = model;
+                //                        model.shouldShowReadLabel = NO;
+                //                        break;  //理论上只有一个已读标记在UI上,所以找到就可以跳出循环
+                //                    }
+                //                }
             }
         }
     }
@@ -226,7 +235,7 @@
                 //说明是全部刷新，这个时候消息的回执数可能是过期的，查刷一下
                 [queryMessages addObject:message];
             }
-
+            
             if (message.isOutgoingMsg)
             {
                 if (message.setting.teamReceiptEnabled &&
@@ -243,8 +252,8 @@
     {
         [[NIMSDK sharedSDK].chatManager refreshTeamMessageReceipts:queryMessages];
     }
-
-
+    
+    
     
     return dict;
 }

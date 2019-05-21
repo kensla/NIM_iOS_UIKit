@@ -108,14 +108,30 @@
 
 - (BOOL)shouldShowReadLabel
 {
-    if (self.message.session.sessionType == NIMSessionTypeP2P)
-    {
-        return _shouldShowReadLabel && self.message.isRemoteRead;
+    //    if (self.message.session.sessionType == NIMSessionTypeP2P)
+    //    {
+    ////        return _shouldShowReadLabel && self.message.isRemoteRead;
+    //        return _shouldShowReadLabel;
+    //    }
+    //    else
+    //    {
+    //        return _shouldShowReadLabel;
+    //    }
+    
+    if (self.message.session.sessionType == NIMSessionTypeP2P){
+        
+        if (self.message.isOutgoingMsg) {
+            return YES;
+        }else {
+            return NO;
+        }
+        
+    }else{
+        return NO;
     }
-    else
-    {
-        return _shouldShowReadLabel;
-    }
+    
+    
+    
     
 }
 

@@ -178,10 +178,17 @@
     {
         if (self.model.message.session.sessionType == NIMSessionTypeP2P)
         {
-            [_readButton setTitle:@"已读" forState:UIControlStateNormal];
+            if (self.model.message.isRemoteRead) {
+                [_readButton setTitle:@"已读" forState:UIControlStateNormal];
+                _readButton.backgroundColor = [UIColor colorWithRed:193/255.0 green:191/255.0 blue:185/255.0 alpha:1.0];
+            }else{
+                [_readButton setTitle:@"未读" forState:UIControlStateNormal];
+                _readButton.backgroundColor = [UIColor colorWithRed:0.36 green:0.77 blue:0.44 alpha:1.00];
+            }
+            
             [_readButton.titleLabel sizeToFit];
             //            [_readButton sizeToFit];
-            _readButton.frame = CGRectMake(_readButton.frame.origin.x, _readButton.frame.origin.y, _readButton.titleLabel.frame.size.width + 3, _readButton.titleLabel.frame.size.height + 3);
+            _readButton.frame = CGRectMake(_readButton.frame.origin.x, _readButton.frame.origin.y, _readButton.titleLabel.frame.size.width + 5, _readButton.titleLabel.frame.size.height + 3);
         }
         else if(self.model.message.session.sessionType == NIMSessionTypeTeam)
         {
