@@ -170,16 +170,17 @@
 {
     //清理本地数据
     NSInteger index = [self.recentSessions indexOfObject:recentSession];
-    [self.recentSessions removeObjectAtIndex:index];
-    
-    //如果删除本地会话后就不允许漫游当前会话，则需要进行一次删除服务器会话的操作
-    if (self.autoRemoveRemoteSession)
-    {
-        [[NIMSDK sharedSDK].conversationManager deleteRemoteSessions:@[recentSession.session]
-                                                          completion:nil];
+    if (index < [self.recentSessions count]) {
+        [self.recentSessions removeObjectAtIndex:index];
+        //如果删除本地会话后就不允许漫游当前会话，则需要进行一次删除服务器会话的操作
+        if (self.autoRemoveRemoteSession)
+        {
+            [[NIMSDK sharedSDK].conversationManager deleteRemoteSessions:@[recentSession.session]
+                                                              completion:nil];
+        }
+        _recentSessions = [self customSortRecents:_recentSessions];
+        [self refresh];
     }
-    _recentSessions = [self customSortRecents:_recentSessions];
-    [self refresh];
 }
 
 - (void)messagesDeletedInSession:(NIMSession *)session{
