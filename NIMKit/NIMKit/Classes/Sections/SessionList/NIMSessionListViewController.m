@@ -43,6 +43,8 @@
     self.tableView.dataSource       = self;
     self.tableView.tableFooterView  = [[UIView alloc] init];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.tableView.separatorColor = [UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0];
+    self.tableView.separatorInset=UIEdgeInsetsMake(0,6, 0, 6);
     _recentSessions = [[NIMSDK sharedSDK].conversationManager.allRecentSessions mutableCopy];
     
     // 系统类自定义通知消息不显示在消息列表

@@ -25,19 +25,31 @@
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.backgroundColor = [UIColor whiteColor];
         _nameLabel.font            = [UIFont boldSystemFontOfSize:15];
+        _nameLabel.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0];
         [self addSubview:_nameLabel];
         
         _messageLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _messageLabel.backgroundColor = [UIColor whiteColor];
         _messageLabel.font            = [UIFont systemFontOfSize:11.f];
-        _messageLabel.textColor       =  [UIColor colorWithRed:100/255.0 green:100/255.0 blue:107/255.0 alpha:1.0];
+        _messageLabel.textColor       =  [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1.0];
         [self addSubview:_messageLabel];
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.backgroundColor = [UIColor whiteColor];
         _timeLabel.font            = [UIFont systemFontOfSize:10.f];
-        _timeLabel.textColor       = [UIColor colorWithRed:176/255.0 green:176/255.0 blue:176/255.0 alpha:1.0];
+        _timeLabel.textColor       = [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1.0];
         [self addSubview:_timeLabel];
+        
+        //        _nameLabel.layer.borderColor = [UIColor redColor].CGColor;
+        //        _nameLabel.layer.borderWidth = 1;
+        //
+        //        _messageLabel.layer.borderColor = [UIColor redColor].CGColor;
+        //        _messageLabel.layer.borderWidth = 1;
+        //
+        //        _timeLabel.layer.borderColor = [UIColor redColor].CGColor;
+        //        _timeLabel.layer.borderWidth = 1;
+        
+        
         
         //        _badgeView = [NIMBadgeView viewWithBadgeTip:@""];
         //        [self addSubview:_badgeView];
@@ -67,7 +79,7 @@
     //    }
     
     if (recent.unreadCount ) {
-        _avatarImageView.badgeBgColor = [UIColor colorWithRed:255/255.0 green:129/255.0 blue:28/255.0 alpha:1.0];
+        _avatarImageView.badgeBgColor =  [UIColor colorWithRed:255/255.0 green:129/255.0 blue:28/255.0 alpha:1.0];
         [_avatarImageView showBadgeWithStyle:WBadgeStyleRedDot value:0 animationType:WBadgeAnimTypeNone];
     } else {
         [_avatarImageView clearBadge];
@@ -79,10 +91,10 @@
     [super layoutSubviews];
     //Session List
     NSInteger sessionListAvatarLeft             = 15;
-    NSInteger sessionListNameTop                = 14;
+    NSInteger sessionListNameTop                = 12;
     NSInteger sessionListNameLeftToAvatar       = 16;
     NSInteger sessionListMessageLeftToAvatar    = 16;
-    NSInteger sessionListMessageBottom          = 14;
+    NSInteger sessionListMessageBottom          = 13;
     NSInteger sessionListTimeRight              = 15;
     NSInteger sessionListTimeTop                = 16;
     //    NSInteger sessionBadgeTimeTop            = 15;
