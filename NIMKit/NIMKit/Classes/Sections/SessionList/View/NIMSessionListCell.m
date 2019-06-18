@@ -10,7 +10,6 @@
 #import "NIMAvatarImageView.h"
 #import "UIView+NIM.h"
 #import "NIMKitUtil.h"
-//#import "NIMBadgeView.h"
 #import "WZLBadgeImport.h"
 
 @implementation NIMSessionListCell
@@ -20,6 +19,7 @@
     if (self) {
         _avatarImageView = [[NIMAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, AvatarWidth, AvatarWidth)];
         _avatarImageView.cornerRadius = 5;
+        _avatarImageView.badgeBgColor =  [UIColor colorWithRed:255/255.0 green:129/255.0 blue:28/255.0 alpha:1.0];
         [self addSubview:_avatarImageView];
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -79,7 +79,6 @@
     //    }
     
     if (recent.unreadCount ) {
-        _avatarImageView.badgeBgColor =  [UIColor colorWithRed:255/255.0 green:129/255.0 blue:28/255.0 alpha:1.0];
         [_avatarImageView showBadgeWithStyle:WBadgeStyleRedDot value:0 animationType:WBadgeAnimTypeNone];
     } else {
         [_avatarImageView clearBadge];
